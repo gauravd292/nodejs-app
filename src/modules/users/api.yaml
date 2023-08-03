@@ -65,6 +65,25 @@ paths:
           description: Error
     #--------------------
 
+    post:
+      tags: 
+          - users
+      summary: Create user
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#components/schemas/User'        
+      responses:
+        201:
+          description: Success
+        400:
+          description: Bad request
+        500:
+          description: Error
+    #--------------------
+
     delete:
       tags: 
         - users
