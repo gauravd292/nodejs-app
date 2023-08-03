@@ -1,0 +1,156 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        user_role:
+          type: string
+          enum: [user, admin]
+        full_name:
+          type: string
+        email_id:
+          type: string
+        password:
+          type: string
+          minLength: 8
+          maxLength: 15
+        created_on:
+          type: string
+        updated_on:
+          type: string
+
+paths:
+
+  /users:
+
+    get:
+      tags: 
+        - users
+      summary: 
+        Get all users
+      parameters:
+        - in: query
+          name: _page
+          description: page number for pagination
+          schema:
+          type: integer
+        - in: query
+          name: _limit
+          description: The numbers of items to return per page
+          schema:
+            type: integer
+        - in: query
+          name: _fields
+          description: comma seperated field names to fetch
+          schema:
+            type: string
+        - in: query
+          name: _sort
+          description: comma seperated field names to sort on
+          schema:
+            type: string
+        - in: query
+          name: _order
+          description: comma seperated string (asc/desc) to sort field given in _sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+        204:
+          description: No content
+        500:
+          description: Error
+    #--------------------
+
+    delete:
+      tags: 
+        - users
+      summary: 
+        Delete all users
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+        500:
+          description: Error
+    #--------------------
+
+  /users/{userId}:
+
+    get:
+      tags: 
+        - users
+      summary:
+        Get Single user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: user id required
+          schema:
+              type: integer
+        - in: query
+          name: _fields
+          description: comma seperated field names to fetch
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+        204:
+          description: No content
+        500:
+          description: Error
+    #--------------------
+
+    patch:
+      tags: 
+        - users
+      summary: 
+        Update user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: user id required
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#components/schemas/User'
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+        500:
+          description: Error
+    #--------------------
+
+    delete:
+      tags: 
+        - users
+      summary: 
+        Delete Single user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: user id required
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+        500:
+          description: Error
+    #--------------------
