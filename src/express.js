@@ -16,17 +16,7 @@ global.pool = dbConfig.pool;
 const { swaggerUiServe, swaggerUiSetup } = require('./config/swagger');
 app.use('/api-doc', swaggerUiServe, swaggerUiSetup);
 
-/**
- * @swagger
- *  /:
- *      get:
- *          summary: End point to check if app is running or not
- *          responses:
- *              200:
- *                  description: Success
- */
 app.get('/', (req, res) => res.send('Hi'));
-
 app.use('/users', require('./modules/users/routes'));
 
 app.use(function(req, res){ throw new NotFoundError();  });
